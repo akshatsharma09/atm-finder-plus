@@ -28,18 +28,18 @@ function MapController({ atms, selectedATMId }) {
 function MapView({ atms, selectedATMId }) {
   const validAtms = atms.filter(atm => atm.latitude && atm.longitude);
   const popupRefs = useRef({});
+  
+  useEffect(() => {
+    if (selectedATMId && popupRefs.current[selectedATMId]) {
+      popupRefs.current[selectedATMId].openPopup();
+    }
+  }, [selectedATMId]);
 
   if (validAtms.length === 0) {
     return <p style={{ marginTop: '20px' }}>No ATM locations available to display on the map.</p>;
   }
 
   const center = [validAtms[0].latitude, validAtms[0].longitude];
-
-  useEffect(() => {
-    if (selectedATMId && popupRefs.current[selectedATMId]) {
-      popupRefs.current[selectedATMId].openPopup();
-    }
-  }, [selectedATMId]);
 
   return (
     <MapContainer
