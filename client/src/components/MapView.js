@@ -116,17 +116,32 @@ function MapView({ atms, selectedATMId, userLocation }) {
             return (
               <Marker {...markerProps}>
                 <Popup>
-            <strong>{atm.name}</strong><br />
-            {atm.bank}<br />
-            {atm.address ? `${atm.address}, ` : ''}{atm.city}
-            <br />
-            Status: {atm.status || 'unknown'}
-            {userLocation && atm.latitude && atm.longitude && (
-              <>
-                <br />
-                Distance: {haversineDistanceKm(userLocation.lat, userLocation.lng, atm.latitude, atm.longitude).toFixed(2)} km
-              </>
-            )}
+            <div className="map-popup">
+              <strong>{atm.name}</strong><br />
+              {atm.bank}<br />
+              {atm.address ? `${atm.address}, ` : ''}{atm.city}
+              <br />
+              Status: {atm.status || 'unknown'}
+              {userLocation && atm.latitude && atm.longitude && (
+                <>
+                  <br />
+                  Distance: {haversineDistanceKm(userLocation.lat, userLocation.lng, atm.latitude, atm.longitude).toFixed(2)} km
+                </>
+              )}
+              <br />
+              <button
+                className="popup-directions-btn"
+                onClick={() => {
+                  if (userLocation) {
+                    const url = `https://www.google.com/maps/dir/${userLocation.lat},${userLocation.lng}/${atm.latitude},${atm.longitude}`;
+                    window.open(url, '_blank');
+                  }
+                }}
+                disabled={!userLocation}
+              >
+                Get Directions
+              </button>
+            </div>
           </Popup>
             </Marker>
           );

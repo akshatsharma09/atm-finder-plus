@@ -1,14 +1,24 @@
 import React, { useState, useEffect } from "react";
-import { FiSearch } from 'react-icons/fi';
+import { FiSearch, FiUser, FiHeart } from 'react-icons/fi';
 import ATMCard from './components/ATMCard';
 import MapView from './components/MapView';
+import AuthModal from './components/AuthModal';
+import ThemeToggle from './components/ThemeToggle';
+import FilterPanel from './components/FilterPanel';
+import { useAuth } from './contexts/AuthContext';
 
 function App() {
+  const { user, logout } = useAuth();
   const [searchTerm, setSearchTerm] = useState("");
   const [atmList, setAtmList] = useState([]);
   const [selectedATMId, setSelectedATMId] = useState(null);
   const [userLocation, setUserLocation] = useState(null);
   const [fetchError, setFetchError] = useState(null);
+  const [authModalOpen, setAuthModalOpen] = useState(false);
+  const [filters, setFilters] = useState({ status: 'all', bank: 'all', maxDistance: '' });
+  const [filterPanelOpen, setFilterPanelOpen] = useState(false);
+  const [favorites, setFavorites] = useState([]);
+  const [showFavorites, setShowFavorites] = useState(false);
 
   useEffect(() => {
     if (navigator && navigator.geolocation) {
@@ -19,10 +29,44 @@ function App() {
     }
   }, []);
 
+  // Load favorites from localStorage
+  useEffect(() => {
+    if (user) {
+      const storedFavorites = localStorage.getItem(`favorites_${user.id}`);
+      if (storedFavorites) {
+        try {
+          setFavorites(JSON.parse(storedFavorites));
+        } catch (error) {
+          console.error('Error parsing favorites:', error);
+        }
+      }
+    } else {
+      setFavorites([]);
+    }
+  }, [user]);
+
+  // Save favorites to localStorage
+  useEffect(() => {
+    if (user && favorites.length >= 0) {
+      localStorage.setItem(`favorites_${user.id}`, JSON.stringify(favorites));
+    }
+  }, [favorites, user]);
+
   const handleSearch = async () => {
     setFetchError(null);
     try {
-      const response = await fetch(`http://localhost:5000/api/atms?query=${encodeURIComponent(searchTerm)}`);
+      const params = new URLSearchParams({
+        query: searchTerm,
+        status: filters.status,
+        bank: filters.bank,
+        maxDistance: filters.maxDistance,
+        ...(userLocation && {
+          userLat: userLocation.lat.toString(),
+          userLng: userLocation.lng.toString(),
+        }),
+      });
+
+      const response = await fetch(`http://localhost:5000/api/atms?${params}`);
       if (!response.ok) throw new Error(`Server returned ${response.status}`);
       const data = await response.json();
       setAtmList(data);
@@ -42,6 +86,25 @@ function App() {
     }, 120);
   };
 
+  const toggleFavorite = (atmId) => {
+    if (!user) {
+      setAuthModalOpen(true);
+      return;
+    }
+    setFavorites(prev =>
+      prev.includes(atmId)
+        ? prev.filter(id => id !== atmId)
+        : [...prev, atmId]
+    );
+  };
+
+  const getDisplayedATMs = () => {
+    if (showFavorites) {
+      return atmList.filter(atm => favorites.includes(atm.id));
+    }
+    return atmList;
+  };
+
   return (
     <div className="app-container">
       <div className="app-header">
@@ -55,19 +118,53 @@ function App() {
           </div>
           ATM Finder Plus
         </div>
-        <div className="search-bar">
-          <input
-            className="search-input"
-            type="text"
-            placeholder="Search by city or bank..."
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-            onKeyDown={(e) => { if (e.key === 'Enter') handleSearch(); }}
-          />
-          <button className="search-btn" onClick={handleSearch} aria-label="Search">
-            <FiSearch style={{ verticalAlign: 'middle' }} />
-          </button>
+
+        <div className="header-controls">
+          <ThemeToggle />
+
+          {user ? (
+            <div className="user-menu">
+              <button
+                className={`favorites-btn ${showFavorites ? 'active' : ''}`}
+                onClick={() => setShowFavorites(!showFavorites)}
+                title="Toggle favorites"
+              >
+                <FiHeart />
+                Favorites ({favorites.length})
+              </button>
+              <span className="user-greeting">Hi, {user.name}</span>
+              <button className="logout-btn" onClick={logout}>Logout</button>
+            </div>
+          ) : (
+            <button className="auth-btn" onClick={() => setAuthModalOpen(true)}>
+              <FiUser />
+              Sign In
+            </button>
+          )}
+
+          <div className="search-bar">
+            <input
+              className="search-input"
+              type="text"
+              placeholder="Search by city or bank..."
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              onKeyDown={(e) => { if (e.key === 'Enter') handleSearch(); }}
+            />
+            <button className="search-btn" onClick={handleSearch} aria-label="Search">
+              <FiSearch style={{ verticalAlign: 'middle' }} />
+            </button>
+          </div>
         </div>
+      </div>
+
+      <div className="filters-row">
+        <FilterPanel
+          filters={filters}
+          onFilterChange={setFilters}
+          isOpen={filterPanelOpen}
+          onToggle={() => setFilterPanelOpen(!filterPanelOpen)}
+        />
       </div>
 
       <div className="layout">
@@ -78,23 +175,36 @@ function App() {
               </div>
             )}
 
-            {atmList.length === 0 ? (
+            {getDisplayedATMs().length === 0 ? (
               <div className="no-results">
-                <h3>No results</h3>
-                <p>Try searching a city or bank. The map on the right will show available ATM locations.</p>
+                <h3>{showFavorites ? 'No favorites yet' : 'No results'}</h3>
+                <p>
+                  {showFavorites
+                    ? 'Add ATMs to your favorites by clicking the heart icon.'
+                    : 'Try searching a city or bank. The map on the right will show available ATM locations.'
+                  }
+                </p>
               </div>
             ) : (
-              atmList.map((atm) => (
+              getDisplayedATMs().map((atm) => (
                 <div key={atm.id} id={`atm-${atm.id}`} onClick={() => selectATM(atm.id)} onKeyDown={(e) => { if (e.key === 'Enter') selectATM(atm.id); }} tabIndex={0}>
-                  <ATMCard atm={atm} userLocation={userLocation} selected={selectedATMId === atm.id} />
+                  <ATMCard
+                    atm={atm}
+                    userLocation={userLocation}
+                    selected={selectedATMId === atm.id}
+                    isFavorite={favorites.includes(atm.id)}
+                    onToggleFavorite={toggleFavorite}
+                  />
                 </div>
               ))
             )}
         </div>
         <div className="map-panel">
-          <MapView atms={atmList} selectedATMId={selectedATMId} userLocation={userLocation} />
+          <MapView atms={getDisplayedATMs()} selectedATMId={selectedATMId} userLocation={userLocation} />
         </div>
       </div>
+
+      <AuthModal isOpen={authModalOpen} onClose={() => setAuthModalOpen(false)} />
     </div>
   );
 }
