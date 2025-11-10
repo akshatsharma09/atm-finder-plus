@@ -1,146 +1,199 @@
-# ATM Finder Plus
+# 🚀 ATM Finder Plus
 
-A full-stack web application for finding and reviewing ATMs across India. Built with React (frontend) and Node.js/Express (backend).
+<div align="center">
+  <img src="https://img.shields.io/badge/React-18.2.0-blue" alt="React Version">
+  <img src="https://img.shields.io/badge/Node.js-18.x-green" alt="Node.js Version">
+  <img src="https://img.shields.io/badge/Express-5.1.0-lightgrey" alt="Express Version">
+  <img src="https://img.shields.io/badge/License-ISC-yellow" alt="License">
+</div>
 
-## Features
+<p align="center">
+  <strong>A modern, full-stack web application for finding and reviewing ATMs across India</strong>
+</p>
 
-### Core Functionality
-- **ATM Search & Filtering**: Advanced search with filters for city, bank, status (available, low cash, out of cash), and proximity-based search using user location.
-- **Interactive Map**: Integrated Leaflet map to visualize ATM locations with markers, popups showing details, and zoom controls.
-- **User Reviews**: View and submit ratings and comments for individual ATMs. Reviews include timestamps and user information.
-- **Authentication**: Secure user login and signup with email/password. Supports demo account for testing.
+<p align="center">
+  <a href="#features">Features</a> •
+  <a href="#tech-stack">Tech Stack</a> •
+  <a href="#getting-started">Getting Started</a> •
+  <a href="#api-endpoints">API</a> •
+  <a href="#contributing">Contributing</a>
+</p>
 
-### User Experience
-- **Real-time Status Updates**: ATM statuses update automatically every 30 seconds to simulate live data.
-- **Responsive Design**: Fully responsive layout that adapts to desktop, tablet, and mobile devices.
-- **Dark/Light Theme Toggle**: Easy theme switching for better accessibility and user preference.
-- **Geolocation Support**: Optional location sharing for proximity-based ATM recommendations.
+---
 
-### Additional Features
-- **Review Management**: Users can add, view, and manage reviews for ATMs.
-- **Bank Filtering**: Filter ATMs by specific banks (SBI, HDFC, ICICI, etc.).
-- **Distance Calculation**: Calculate and filter ATMs within a specified distance from user location.
-- **Mock Data**: Pre-loaded with sample ATMs across major Indian cities for immediate testing.
+## ✨ Features
 
-### Screenshots
+### 🎯 Core Functionality
+- **🔍 Advanced ATM Search & Filtering**: Filter by city, bank, status (available/low/out-of-cash), and proximity
+- **🗺️ Interactive Map Integration**: Leaflet-powered map with markers, popups, and zoom controls
+- **⭐ User Reviews & Ratings**: Submit and view reviews with timestamps and user info
+- **🔐 Secure Authentication**: Login/signup with email/password, demo account available
 
-#### Main Dashboard
-![Main Dashboard](https://via.placeholder.com/800x400?text=ATM+Finder+Plus+Dashboard)
-*Overview of the main interface showing ATM list, map, and filters.*
+### 🎨 User Experience
+- **⚡ Real-time Updates**: ATM statuses refresh every 30 seconds for live-like experience
+- **📱 Fully Responsive**: Seamless experience across desktop, tablet, and mobile devices
+- **🌙 Dark/Light Theme Toggle**: Accessibility-focused theme switching
+- **📍 Geolocation Support**: Optional location sharing for nearby ATM recommendations
 
-#### ATM Details and Reviews
-![ATM Details](https://via.placeholder.com/800x400?text=ATM+Details+and+Reviews)
-*Detailed view of an ATM with location, status, and user reviews.*
+### 🚀 Additional Features
+- **💬 Review Management**: Add, view, and manage ATM reviews
+- **🏦 Bank Filtering**: Filter by major banks (SBI, HDFC, ICICI, PNB, etc.)
+- **📏 Distance Calculation**: Find ATMs within specified distance from your location
+- **🗃️ Mock Data**: Pre-loaded sample data across major Indian cities for immediate testing
 
-#### Map View
-![Map View](https://via.placeholder.com/800x400?text=Interactive+Map+View)
-*Interactive map showing ATM locations with markers and popups.*
+---
 
-#### Mobile Responsive Design
-![Mobile View](https://via.placeholder.com/400x600?text=Mobile+Responsive+Design)
-*Mobile-optimized interface for on-the-go ATM finding.*
+## 📸 Screenshots
 
-## Tech Stack
+<div align="center">
+  <table>
+    <tr>
+      <td align="center">
+        <img src="https://via.placeholder.com/400x300?text=Main+Dashboard" width="400" alt="Main Dashboard"/><br/>
+        <em>Main Dashboard - ATM List & Filters</em>
+      </td>
+      <td align="center">
+        <img src="https://via.placeholder.com/400x300?text=Interactive+Map" width="400" alt="Interactive Map"/><br/>
+        <em>Interactive Map View</em>
+      </td>
+    </tr>
+    <tr>
+      <td align="center">
+        <img src="https://via.placeholder.com/400x300?text=ATM+Details" width="400" alt="ATM Details"/><br/>
+        <em>ATM Details & Reviews</em>
+      </td>
+      <td align="center">
+        <img src="https://via.placeholder.com/400x300?text=Mobile+View" width="400" alt="Mobile View"/><br/>
+        <em>Mobile Responsive Design</em>
+      </td>
+    </tr>
+  </table>
+</div>
+
+---
+
+## 🛠️ Tech Stack
 
 ### Frontend
-- React 18
-- React Router for navigation
-- Leaflet for map integration
-- Context API for state management
-- CSS for styling
+<div align="center">
+  <img src="https://img.shields.io/badge/React-18.2.0-61DAFB?style=for-the-badge&logo=react" alt="React">
+  <img src="https://img.shields.io/badge/React_Router-CA4245?style=for-the-badge&logo=react-router" alt="React Router">
+  <img src="https://img.shields.io/badge/Leaflet-199900?style=for-the-badge&logo=leaflet" alt="Leaflet">
+  <img src="https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3" alt="CSS3">
+</div>
 
 ### Backend
-- Node.js with Express.js
-- ES6 modules
-- CORS enabled
-- Mock data for ATMs, reviews, and users
+<div align="center">
+  <img src="https://img.shields.io/badge/Node.js-339933?style=for-the-badge&logo=node.js" alt="Node.js">
+  <img src="https://img.shields.io/badge/Express.js-000000?style=for-the-badge&logo=express" alt="Express.js">
+  <img src="https://img.shields.io/badge/ES6_Modules-FF6B35?style=for-the-badge" alt="ES6 Modules">
+  <img src="https://img.shields.io/badge/CORS-000000?style=for-the-badge" alt="CORS">
+</div>
 
-## Getting Started
+---
 
-### Prerequisites
+## 🚀 Getting Started
+
+### 📋 Prerequisites
 - Node.js (v14 or higher)
-- npm or yarn
+- npm or yarn package manager
 
-### Installation
+### ⚡ Quick Start
 
-1. **Clone the repository** (if applicable) or navigate to the project directory.
-
-2. **Install root dependencies** (if any):
+1. **Clone & Navigate**
    ```bash
+   git clone <repository-url>
+   cd atm-finder-plus
+   ```
+
+2. **Install Dependencies**
+   ```bash
+   # Root dependencies (if any)
    npm install
+
+   # Backend setup
+   cd server && npm install && cd ..
+
+   # Frontend setup
+   cd client && npm install && cd ..
    ```
 
-3. **Set up the backend**:
+3. **Launch Application**
    ```bash
-   cd server
-   npm install
+   # Start both frontend and backend
+   npm run dev
    ```
 
-4. **Set up the frontend**:
-   ```bash
-   cd ../client
-   npm install
-   ```
+4. **Access the App**
+   - Frontend: [http://localhost:3000](http://localhost:3000)
+   - Backend API: [http://localhost:5000](http://localhost:5000)
 
-### Running the Application
+---
 
-1. **Start the backend server**:
-   ```bash
-   cd server
-   npm run dev  # or npm start
-   ```
-   The server will run on http://localhost:5000.
+## 📡 API Endpoints
 
-2. **Start the frontend**:
-   ```bash
-   cd client
-   npm start
-   ```
-   The React app will run on http://localhost:3000.
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| `GET` | `/api/atms` | Get ATMs with filtering options |
+| `GET` | `/api/reviews/:atmId` | Get reviews for specific ATM |
+| `POST` | `/api/reviews` | Submit new review |
+| `POST` | `/api/auth/login` | User authentication |
+| `POST` | `/api/auth/signup` | User registration |
+| `GET` | `/api/welcome` | Welcome message |
 
-3. **Open your browser** and navigate to http://localhost:3000 to use the application.
+> **Note**: All API requests are logged with method and path for monitoring.
 
-### API Endpoints
+---
 
-The backend provides the following API endpoints:
-
-- `GET /api/atms` - Get all ATMs with optional filtering (query, status, bank, maxDistance, userLat, userLng)
-- `GET /api/reviews/:atmId` - Get reviews for a specific ATM
-- `POST /api/reviews` - Add a new review (requires atmId, userId, rating, comment)
-- `POST /api/auth/login` - User login (requires email, password)
-- `POST /api/auth/signup` - User signup (requires email, password, name)
-- `GET /api/welcome` - Welcome message endpoint (returns {"message": "Welcome to the ATM Finder Plus API!"})
-
-All requests are logged with method and path information.
-
-## Project Structure
+## 📁 Project Structure
 
 ```
 atm-finder-plus/
-├── client/                 # React frontend
-│   ├── public/
-│   ├── src/
-│   │   ├── components/     # React components
-│   │   ├── contexts/       # React contexts
-│   │   ├── utils/          # Utility functions
-│   │   └── ...
-│   └── package.json
-├── server/                 # Node.js backend
-│   ├── server.js           # Main server file
-│   ├── seed.js             # Data seeding script
-│   └── package.json
-├── package.json            # Root package.json (if needed)
-└── README.md               # This file
+├── 📁 client/                 # React Frontend
+│   ├── 📁 public/            # Static assets
+│   ├── 📁 src/
+│   │   ├── 📁 components/    # Reusable UI components
+│   │   ├── 📁 contexts/      # React Context providers
+│   │   ├── 📁 utils/         # Utility functions
+│   │   └── 📄 App.js         # Main app component
+│   └── 📄 package.json
+├── 📁 server/                 # Node.js Backend
+│   ├── 📄 server.js          # Express server setup
+│   ├── 📄 seed.js            # Data seeding script
+│   └── 📄 package.json
+├── 📄 package.json           # Root configuration
+└── 📄 README.md              # Project documentation
 ```
 
-## Contributing
+---
 
-1. Fork the repository
-2. Create a feature branch
-3. Make your changes
-4. Test thoroughly
-5. Submit a pull request
+## 🤝 Contributing
 
-## License
+We welcome contributions! Here's how to get started:
 
-This project is licensed under the ISC License.
+1. **Fork** the repository
+2. **Create** a feature branch: `git checkout -b feature/amazing-feature`
+3. **Commit** your changes: `git commit -m 'Add amazing feature'`
+4. **Push** to the branch: `git push origin feature/amazing-feature`
+5. **Open** a Pull Request
+
+### Development Guidelines
+- Follow existing code style and conventions
+- Write clear, concise commit messages
+- Test your changes thoroughly
+- Update documentation as needed
+
+---
+
+## 📄 License
+
+This project is licensed under the **ISC License** - see the [LICENSE](LICENSE) file for details.
+
+---
+
+<div align="center">
+  <p>Made with ❤️ for hassle-free ATM finding in India</p>
+  <p>
+    <a href="#atm-finder-plus">Back to Top</a>
+  </p>
+</div>
