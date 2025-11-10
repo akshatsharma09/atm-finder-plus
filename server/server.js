@@ -6,6 +6,12 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
+// Logging middleware
+app.use((req, res, next) => {
+  console.log(`${req.method} ${req.path}`);
+  next();
+});
+
 // --- Mock ATM Data ---
 const atmData = [
   { id: 1, name: "SBI ATM", city: "Lucknow", bank: "SBI", latitude: 26.8467, longitude: 80.9462, status: "available", address: "123 Main St" },
@@ -114,6 +120,11 @@ app.post("/api/auth/signup", (req, res) => {
     users.push(newUser);
     res.json({ success: true, user: { id: newUser.id, email: newUser.email, name: newUser.name } });
   }
+});
+
+// Welcome endpoint
+app.get("/api/welcome", (req, res) => {
+  res.json({ message: "Welcome to the ATM Finder Plus API!" });
 });
 
 // Simulate status updates

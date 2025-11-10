@@ -1,47 +1,6 @@
-# ATM Finder Plus Enhancement TODO
+# TODO: Add /api/welcome endpoint with logging and update README.md
 
-## 1. User Authentication System
-- [x] Create AuthContext for state management
-- [x] Create Login/Signup modal component
-- [x] Store user data in localStorage
-- [x] Add auth state to App.js
-
-## 2. Reviews and Ratings
-- [x] Create ReviewModal component
-- [x] Add review button to ATMCard
-- [x] Store reviews in server (in-memory array)
-- [x] Add new API endpoints: GET/POST /api/reviews
-
-## 3. Favorites System
-- [x] Add favorite button to ATMCard
-- [x] Store favorites in localStorage (per user)
-- [x] Add favorites filter and view
-
-## 4. Directions Integration
-- [x] Add directions button to MapView popup and ATMCard
-- [x] Open Google Maps with origin=user location, destination=ATM
-
-## 5. Enhanced Filters
-- [x] Create FilterPanel component with status, bank, distance filters
-- [x] Integrate filters into search logic
-
-## 6. Theme Toggle
-- [x] Create ThemeToggle component
-- [x] Implement dark/light themes using CSS variables
-- [x] Store preference in localStorage
-
-## 7. Mobile UX Improvements
-- [ ] Enhance responsive design for touch interactions
-- [ ] Add swipe gestures, better mobile navigation
-
-## 8. Real-time Status Simulation
-- [x] Add periodic status updates in server
-- [x] Simulate ATM status changes
-
-## 9. Server Enhancements
-- [x] Add endpoints for reviews, user auth simulation
-- [x] Expand mock data
-
-## 10. Testing and Polish
-- [ ] Test all features across devices
-- [ ] Add loading states, error handling
+- [x] Edit server/server.js: Add logging middleware to log request method and path, and add GET /api/welcome endpoint returning {"message": "Welcome to the ATM Finder Plus API!"}.
+- [x] Edit client/README.md: Replace with project-specific README describing ATM Finder Plus, setup instructions for client and server, and document the new endpoint.
+- [x] Run server to verify it starts without errors.
+- [x] Test the new /api/welcome endpoint to ensure logging and correct response.
